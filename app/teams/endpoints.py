@@ -1,6 +1,5 @@
-from fastapi import Depends, APIRouter, HTTPException, Security, status, BackgroundTasks
+from fastapi import APIRouter, HTTPException, Security, status, BackgroundTasks
 from fastapi_sqlalchemy import db
-from typing import Optional
 
 from levels.level_model import Level
 
@@ -34,7 +33,7 @@ def create_teams(teams: TeamsSchema):
                 db.session.add(new_level)
                 db.session.commit()
         
-        return { "message": "Teams added" }
+        return { "message": "Teams added successfully" }
 
     except Exception as _:
         raise HTTPException(status_code=400, detail="Team not created")

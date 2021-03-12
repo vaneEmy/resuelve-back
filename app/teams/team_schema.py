@@ -1,5 +1,6 @@
-from pydantic import BaseModel, Field
-from typing import Optional, List
+from pydantic import BaseModel
+from typing import List
+
 from levels.level_schema import LevelSchema
 
 class TeamSchema(BaseModel):
