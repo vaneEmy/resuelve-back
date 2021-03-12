@@ -1,0 +1,8 @@
+# Dependencias del servidor
+
+fastapi==0.63
+uvicorn==0.13.4
+
+# Paquetes para la conexión con la BD
+
+FastAPI-SQLAlchemy==0.2.1
