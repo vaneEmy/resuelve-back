@@ -9,7 +9,8 @@ def create_player(name, level, goals, salary, bono, team):
 
     team_query = get_min_goal_by_team(team, level)
             
-    return {   "nombre": name,
+    return {   
+        "nombre": name,
         "nivel": level,
         "goles": goals,
         "sueldo": salary,

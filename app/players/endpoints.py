@@ -23,6 +23,7 @@ def calculate_salaries(players: PlayersSchema):
             players_list.append(create_player(player.nombre, player.nivel, player.goles, player.sueldo, player.bono, player.equipo))
             teams[player.equipo] = players_list
 
+    
     # We iterate over the teams dictionary in order to calculate team and individual percentage 
     for players in teams.values():
         
@@ -32,14 +33,15 @@ def calculate_salaries(players: PlayersSchema):
         team_porcentage = (team_goals*100)/total_goals
 
         for player in players:
-            print(player.get('nombre'))
-            # print(player.get('goles'))
-            # print(player.get('minimo_goles'))
             individual_porcentage = (player.get('goles')*100) / player.get('minimo_goles')
             
             team_goal = ((player.get('bono') / 2) * team_porcentage) / 100
             individual_goal = ((player.get('bono') / 2) * individual_porcentage) / 100
             
-            bono_total = team_goal +  individual_goal
+            total_bono = team_goal +  individual_goal
+
+            total_salary = player.get('sueldo') + total_bono
+            print(total_salary)
+            
             
     return { "message": "Ok"}
