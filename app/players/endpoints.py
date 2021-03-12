@@ -29,16 +29,17 @@ def calculate_salaries(players: PlayersSchema):
         team_goals = sum(p.get('goles') for p in players)
         total_goals = sum(p.get('minimo_goles') for p in players)
         
-        print(team_goals)
-        print(total_goals)
-        
         team_porcentage = (team_goals*100)/total_goals
-
-        print(team_porcentage)
 
         for player in players:
             print(player.get('nombre'))
-            print(player.get('goles'))
-            print(player.get('minimo_goles'))
-        
+            # print(player.get('goles'))
+            # print(player.get('minimo_goles'))
+            individual_porcentage = (player.get('goles')*100) / player.get('minimo_goles')
+            
+            team_goal = ((player.get('bono') / 2) * team_porcentage) / 100
+            individual_goal = ((player.get('bono') / 2) * individual_porcentage) / 100
+            
+            bono_total = team_goal +  individual_goal
+            
     return { "message": "Ok"}
