@@ -4,6 +4,7 @@ from fastapi import FastAPI
 
 from config import DB_URL, Base
 from teams.endpoints import teamsRouter
+from players.endpoints import playersRouter
 
 app = FastAPI()
 
@@ -17,3 +18,4 @@ def check_status():
     return { "status": "Ok" }
 
 app.include_router(teamsRouter)
+app.include_router(playersRouter)
