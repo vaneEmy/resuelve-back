@@ -20,7 +20,7 @@ def team_already_exists(team: str):
         Validate that teams are not repeated if does, return true that the team already exists, otherwise return false
     """
     team_query =  db.session.query(Team).filter(Team.name == team).first()
-    
+
     if team_query is None:
         return False
     return True
@@ -31,7 +31,7 @@ def level_exists_by_team_and_level(team: str, level: str):
         If does it returns True otherwise returns False 
     """
 
-    team_query = db.session.query(Team.name, Level.name).join(Level).filter(Team.name == team, Level.name == level)
+    team_query = db.session.query(Team.name, Level.name).join(Level).filter(Team.name == team, Level.name == level).first()
     
     if team_query is None:
         return False

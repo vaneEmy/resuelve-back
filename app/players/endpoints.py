@@ -17,9 +17,11 @@ def calculate_salaries(players: PlayersSchema):
     # We create a dictionary of teams which every team has players with their information and the  minimum goals by their level
     for player in players.jugadores:
         
+        # Validate if the team exists
         if not team_already_exists(player.equipo):
             raise HTTPException(status_code=422, detail=f"Team {player.equipo} does not exist")
-
+        
+        # Validate if the level exists
         player_query = create_player(player.nombre, player.nivel, player.goles, player.sueldo, player.bono, player.equipo)
         if player_query is None:
             raise HTTPException(status_code=422, detail=f"The level {player.nivel} does not exists for the team {player.equipo}")
@@ -43,7 +45,7 @@ def calculate_salaries(players: PlayersSchema):
         total_goals = sum(p.get('goles_minimos') for p in players_values)
         
         team_porcentage = (team_goals*100)/total_goals
-
+        
         # Add players list to a new list
         new_players_list.extend(players_values)
         

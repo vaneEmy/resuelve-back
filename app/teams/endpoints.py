@@ -37,8 +37,10 @@ def create_teams(teams: TeamsSchema):
 
                 db.session.add(new_level)
                 db.session.commit()
-        
-            return { "message": "Teams added successfully" }
 
         except Exception as _:
             raise HTTPException(status_code=400, detail="Team not created")
+    
+    return { "message": "Teams added successfully" }
+
+        
