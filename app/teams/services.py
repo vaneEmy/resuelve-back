@@ -11,3 +11,14 @@ def get_min_goal_by_team(team: str, level: str):
     """
 
     return db.session.query(Team.name, Level.name, Level.goal).join(Level).filter(Team.name == team, Level.name == level)
+
+def team_already_exists(team: str):
+    """
+        Validate that teams are not repeated if does, return true that the team already exists, otherwise return false
+    """
+    team_query =  db.session.query(Team).filter(Team.name.like(f'%{team}%'))
+    
+    if team_query is None:
+        return False
+    return True
+     

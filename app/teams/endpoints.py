@@ -1,23 +1,24 @@
-from fastapi import APIRouter, HTTPException, Security, status, BackgroundTasks
+from fastapi import APIRouter, HTTPException
 from fastapi_sqlalchemy import db
 
 from levels.level_model import Level
 
 from .team_model import Team
 from .team_schema import TeamsSchema
+from .services import team_already_exists
 
 teamsRouter = APIRouter()
 
 @teamsRouter.post('/teams')
 def create_teams(teams: TeamsSchema):
     
-    try:
+    for team in teams.teams:
         
-        for team in teams.teams:
-            
-            new_team = Team(
-                name = team.name,
-            )
+        if team_already_exists(team.name):
+            raise HTTPException(status_code=400, detail="Team already exists")
+        
+        try:
+            new_team = Team(name = team.name,)
             
             db.session.add(new_team)
             db.session.commit()
@@ -33,7 +34,7 @@ def create_teams(teams: TeamsSchema):
                 db.session.add(new_level)
                 db.session.commit()
         
-        return { "message": "Teams added successfully" }
+            return { "message": "Teams added successfully" }
 
-    except Exception as _:
-        raise HTTPException(status_code=400, detail="Team not created")
+        except Exception as _:
+            raise HTTPException(status_code=400, detail="Team not created")
