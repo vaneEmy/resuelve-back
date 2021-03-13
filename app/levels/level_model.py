@@ -3,12 +3,10 @@ from config import Base
 
 class Level(Base):
     """
-        Datavse model for Level table
+        Database model for Level table
     """
 
     __tablename__ = "levels"
-    
-    
 
     id = Column(Integer, primary_key=True)
     name = Column(String(10), nullable=False)

@@ -44,10 +44,8 @@ def calculate_salaries(players: PlayersSchema):
             team_goal = ((player_value.get('bono') / 2) * team_porcentage) / 100
             individual_goal = ((player_value.get('bono') / 2) * individual_porcentage) / 100
             
-            total_bono = team_goal +  individual_goal
-
             # Calculate the total salary and round decimals
-            total_salary = round(player_value.get('sueldo') + total_bono, 2)
+            total_salary = round(player_value.get('sueldo') + (team_goal +  individual_goal), 2)
             
             # Add total salary to player object
             player_value["sueldo_completo"] = total_salary
