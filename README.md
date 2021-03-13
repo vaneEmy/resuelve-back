@@ -43,7 +43,7 @@ docker-compose build
 ### INSTRUCCIONES:
 
 El programa permite crear equipos y minimos por nivel, los cuales son almacenados en una base de datos SQLite. 
-Para crear equipos y mínimos por nivel es a través de esta petición: *http://127.0.0.1:8000/teams*
+Para crear equipos y mínimos por nivel es a través de esta petición: *http://127.0.0.1:8000/teams* por el método HTTP POST
 
 El cual acepta un JSON en el body con la siguiente estructura:
 
@@ -80,4 +80,4 @@ El cual acepta un JSON en el body con la siguiente estructura:
 }
 ```
 
-2. Para calcular el sueldo de los jugadores de Resuelve FC es através de esta petición: *http://127.0.0.1:8000/salaries/calculation*
+2. Para calcular el sueldo de los jugadores de Resuelve FC es através de esta petición: *http://127.0.0.1:8000/salaries/calculation* por el método HTTP POST
