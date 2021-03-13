@@ -5,7 +5,7 @@ from levels.level_model import Level
 
 from .team_model import Team
 from .team_schema import TeamsSchema
-from .services import team_already_exists
+from .services import team_already_exists, level_exists_by_team_and_level
 
 teamsRouter = APIRouter()
 
@@ -15,8 +15,12 @@ def create_teams(teams: TeamsSchema):
     for team in teams.teams:
         
         if team_already_exists(team.name):
-            raise HTTPException(status_code=400, detail="Team already exists")
+            raise HTTPException(status_code=400, detail=f"Team {team.name} already exists")
         
+        for level in team.levels:
+            if level_exists_by_team_and_level(team.name, level.level):
+                raise HTTPException(status_code=400, detail=f"The level {level.level} already exists for the team {team.name}")
+
         try:
             new_team = Team(name = team.name,)
             

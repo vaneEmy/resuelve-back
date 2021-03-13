@@ -1,5 +1,4 @@
 from fastapi_sqlalchemy import db
-from sqlalchemy import or_, and_
 
 from levels.level_model import Level
 
@@ -21,4 +20,15 @@ def team_already_exists(team: str):
     if team_query is None:
         return False
     return True
-     
+
+def level_exists_by_team_and_level(team: str, level: str):
+    """
+        Check if a level already exists by team.
+        If does it returns True otherwise returns False 
+    """
+
+    team_query = db.session.query(Team.name, Level.name).join(Level).filter(Team.name == team, Level.name == level)
+    
+    if team_query is None:
+        return False
+    return True
