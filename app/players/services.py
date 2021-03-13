@@ -11,9 +11,9 @@ def create_player(name, level, goals, salary, bono, team):
             
     return {   
         "nombre": name,
-        "nivel": level,
+        "goles_minimos": team_query[0][2],
         "goles": goals,
         "sueldo": salary,
         "bono":  bono,
-        "minimo_goles": team_query[0][2] 
+        "equipo": team 
     }
