@@ -37,7 +37,11 @@ docker build .
 docker-compose build
 ```
 
+En la consola nos aparecerá un mensaje de: **"Application startup complete."** indicando que ha iniciado con éxito.
+
 5. Podemos realizar peticiones desde nuestro host *http://127.0.0.1:8000*
+
+6. Para validar que alcanzamos el contenedor, podemos hacer una prueba con la siguiente petición por el método HTTP GET *http://127.0.0.1:8000** el cual nos debe regresar un código de status 200
 
 
 ### INSTRUCCIONES:
