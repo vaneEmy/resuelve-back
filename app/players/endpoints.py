@@ -4,6 +4,8 @@ from fastapi_sqlalchemy import db
 from .player_schema import PlayersSchema
 from .services import create_player
 
+from teams.services import team_already_exists
+
 playersRouter = APIRouter()
 
 @playersRouter.post('/salaries/calculation')
@@ -14,14 +16,22 @@ def calculate_salaries(players: PlayersSchema):
     
     # We create a dictionary of teams which every team has players with their information and the  minimum goals by their level
     for player in players.jugadores:
+        
+        if not team_already_exists(player.equipo):
+            raise HTTPException(status_code=422, detail=f"Team {player.equipo} does not exist")
+
+        player_query = create_player(player.nombre, player.nivel, player.goles, player.sueldo, player.bono, player.equipo)
+        if player_query is None:
+            raise HTTPException(status_code=422, detail=f"The level {player.nivel} does not exists for the team {player.equipo}")
+        
         # We verify if the team exists in the key of the dictionary 
         if teams.get(player.equipo):
             players_list = teams.get(player.equipo)
-            players_list.append(create_player(player.nombre, player.nivel, player.goles, player.sueldo, player.bono, player.equipo))
+            players_list.append(player_query)
             teams[player.equipo] = players_list
         else:
             players_list = []
-            players_list.append(create_player(player.nombre, player.nivel, player.goles, player.sueldo, player.bono, player.equipo))
+            players_list.append(player_query)
             teams[player.equipo] = players_list
 
     
